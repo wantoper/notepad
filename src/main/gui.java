@@ -10,14 +10,16 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 public class gui {
 	static List<File> list = new ArrayList<>();
+	static JFrame j = new JFrame();
 	
 	public static void main(String[] args) {
-		JFrame j = new JFrame();
+		
 		j.setTitle("test");
 		j.setSize(1005, 655);
         j.setLocation(20, 10);
@@ -41,6 +43,10 @@ public class gui {
     public static JPanel newpane(File file){
     	JPanel p = new JPanel();
     	JTextArea jt = new JTextArea();
+        JScrollPane jsp=new JScrollPane(jt);
+        jsp.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        jt.setPreferredSize(new Dimension(980, 580));
     	char[] all = new char[(int) file.length()];
         try (FileReader input = new FileReader(file)) {
             input.read(all);
@@ -48,7 +54,8 @@ public class gui {
             e.getMessage();
         }
         jt.setText(new String(all));
-        p.add(jt);
+
+        p.add(jsp);
 		return p;
     }
 	
